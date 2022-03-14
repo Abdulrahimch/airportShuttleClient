@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './axiosConfig';
 import { AuthApiData, GetClientsApiData } from '../../interface/AuthApiData';
 import { Client } from '../../interface/Client';
 

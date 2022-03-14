@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './axiosConfig';
 import { Driver, DriverApiData, GetDriversApiData } from '../../interface/Driver';
 
 export const postDriver = async (inputs: Driver):Promise<DriverApiData> => {
