@@ -1,10 +1,14 @@
 import { useState } from 'react';  
 import useStyles from './useStyles';
-import { Tabs, Tab, Grid, Menu, MenuItem, Button } from '@material-ui/core';
+import { Tabs, Tab, Grid, Menu, MenuItem, SwipeableDrawer, ListItem, List, ListItemText, IconButton } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 import { useLanguage } from '../../../context/useLanguageContext';
 import { useHistory } from 'react-router-dom';  
 import LanguageTab from '../LanguageTab/LanguageTab';
 import Profile from '../Profile/Profile';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import theme from '../../Theme';
+
 
 function AgencyHeader(): JSX.Element {
     const classes = useStyles();
@@ -12,6 +16,9 @@ function AgencyHeader(): JSX.Element {
     const [anchorCleitnEl, setAnchorCleitnEl] = useState<null | HTMLElement>(null);
     const [open, setOpen] = useState<boolean>(false);
     const [openClient, setOpenClient] = useState<boolean>(false);
+    const [openDrawer, setOpenDrawer] = useState<boolean>(false);
+    const matches = useMediaQuery(theme.breakpoints.down('md'));
+
     
     const { language } = useLanguage();
     const history = useHistory();
@@ -32,6 +39,7 @@ function AgencyHeader(): JSX.Element {
         history.push(url);
         setOpen(false);
         setOpenClient(false);
+        setOpenDrawer(false);
     };
 
     const handleClickMenu = (event: any, setAnchorFunc: (event: any) => void, setOpenFunc: (value: boolean) => void) => {
@@ -73,6 +81,54 @@ function AgencyHeader(): JSX.Element {
         }  
     ];
 
+    const drawer = (
+        <>
+            <SwipeableDrawer 
+                open={openDrawer} 
+                onClose={() => {setOpenDrawer(false)}} 
+                onOpen={() => {setOpenDrawer(true)}}
+                classes={{paper: classes.drawer}}
+            >
+            <div className={classes.toolbarMargin} />  
+            <List disablePadding>
+                <ListItem 
+                    onClick={(event: any) => {handleClick(event, '/agency-home')}} 
+                    divider button 
+                >
+                    <ListItemText disableTypography>Home</ListItemText>
+                </ListItem>
+                <ListItem 
+                    onClick={(event: any) => handleClickMenu(event, setAnchorCleitnEl, setOpenClient)} 
+                    divider button 
+                >   
+                    <ListItemText disableTypography>{language === 'eng' ? 'Clients' : 'Müşteriler'}</ListItemText>
+                </ListItem>
+                <ListItem 
+                    onClick={(event: any) => handleClick(event, '/agency-reservation')} 
+                    divider button 
+                >   
+                    <ListItemText disableTypography>{language === 'eng' ? 'Reservations' : 'Rezervasyonlar'}</ListItemText>
+                </ListItem>
+                <ListItem 
+                    onClick={(event: any) => handleClick(event, '/agency-payment')} 
+                    divider button 
+                >
+                    <ListItemText disableTypography>{language === 'eng' ? 'Payments' : 'Finans'}</ListItemText>
+                </ListItem>
+                <ListItem 
+                onClick={(event: any) => handleClickMenu(event, setAnchorEl, setOpen)} 
+                divider button 
+                >
+                    <ListItemText disableTypography>{language === 'eng' ? 'Drivers' : 'Sürücüler'}</ListItemText>
+                </ListItem>
+            </List>    
+            </SwipeableDrawer>
+            <IconButton className={classes.drawerIcon} onClick={() => {setOpenDrawer(!openDrawer)}} disableRipple>
+                <MenuIcon className={classes.drawerIconMenu} />
+            </IconButton>
+        </>
+    )
+
     const { englishTabs,  turkishTabs } = AgencyTabsDictionary;
     
     function tabFormation() {
@@ -89,9 +145,9 @@ function AgencyHeader(): JSX.Element {
     };
 
     return (
-        <Grid container className={classes.root} >
+        <Grid container className={classes.root}>
             <Grid item>
-                <Tabs
+                {matches ? drawer : <Tabs
                     aria-label="wrapped label tabs example"
                     TabIndicatorProps={{
                         style: {
@@ -100,7 +156,7 @@ function AgencyHeader(): JSX.Element {
                     }}
                 >
                     {tabFormation()}
-                </Tabs>
+                </Tabs>}
                 {
                     menus.map(({ anchorEl, open, onClose, options }) => (
                         <>
