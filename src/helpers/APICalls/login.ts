@@ -3,7 +3,7 @@ import { AuthApiData } from '../../interface/AuthApiData';
 
 const login = async (username: string, password: string): Promise<AuthApiData> => {
     const fetchData = { username, password };
-    return await axios.post('/auth/login', fetchData)
+    return await axios.post('/api/auth/login', fetchData)
         .then((res) => res.data)
         .catch(() => ({
             error: { message: 'Unable to connect to server. Please try again' }
@@ -16,7 +16,7 @@ interface Password {
 }
 
 export const changePasswordApi = async (passwordInputs: Password ) => {
-    return await axios.patch('/auth/change-password', passwordInputs)
+    return await axios.patch('/api/auth/change-password', passwordInputs)
         .then((res) => res.data)
         .catch((error) => error.response.data);
 };

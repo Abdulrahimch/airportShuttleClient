@@ -3,7 +3,7 @@ import { GetReservationPaymentApiData } from '../../interface/agencyReservation'
 import { FormValues, ReservationApiData, GetReservationApiData } from '../../interface/Reservation';
 
 export const postReservation = async (inputs: FormValues): Promise<ReservationApiData> => {
-    return await axios.post('/reservation/', inputs)
+    return await axios.post('/api/reservation/', inputs)
         .then((res) => res.data)
         .catch((error) => ({
             error: { message: 'error! please try again later' }
@@ -12,7 +12,7 @@ export const postReservation = async (inputs: FormValues): Promise<ReservationAp
 };
 
 export const updateReservation = async (id: string, inputs: FormValues): Promise<ReservationApiData> => {
-    return await axios.patch(`/reservation/${id}`, inputs)
+    return await axios.patch(`/api/reservation/${id}`, inputs)
         .then((res) => res.data)
         .catch((error) => ({
             error: { message: 'error! please try again later' }
@@ -21,7 +21,7 @@ export const updateReservation = async (id: string, inputs: FormValues): Promise
 };
 
 export const getReservations = async (): Promise<GetReservationApiData> => {
-    return await axios.get('/reservation/')
+    return await axios.get('/api/reservation/')
         .then((res) => res.data)
         .catch(() => ({
             error: { message: 'error! please try again later' }
@@ -30,7 +30,7 @@ export const getReservations = async (): Promise<GetReservationApiData> => {
 };
 
 export const deleteReservation = async (id: string): Promise<ReservationApiData> => {
-    return await axios.delete(`/reservation/${id}`)
+    return await axios.delete(`/api/reservation/${id}`)
         .then((res) => res.data)
         .catch(() => ({
             error: { message: 'error! please try again later' }
@@ -39,7 +39,7 @@ export const deleteReservation = async (id: string): Promise<ReservationApiData>
 };
 // get Client reservations and payments stat.
 export const getMyDetailsStat = async (id: string | undefined, from: Date, to: Date): Promise<GetReservationPaymentApiData> => {
-    return await axios.get(`/reservation/stat/${id}`, {
+    return await axios.get(`/api/reservation/stat/${id}`, {
         params: {
             from,
             to

@@ -3,7 +3,7 @@ import { AuthApiData, GetClientsApiData } from '../../interface/AuthApiData';
 import { Client } from '../../interface/Client';
 
 export const postClient = async (inputs: Client): Promise<AuthApiData> => {
-    return await axios.post('/users/', inputs)
+    return await axios.post('/api/users/', inputs)
             .then((res) => res.data)
             .catch(() => ({
                 error: {message: 'Unable to connect to server. Please try again'}
@@ -11,7 +11,7 @@ export const postClient = async (inputs: Client): Promise<AuthApiData> => {
 };
 
 export const getClients = async (): Promise<GetClientsApiData> => {
-    return await axios.get('/users/')
+    return await axios.get('/api/users/')
             .then((res) => res.data)
             .catch(() => ({
                 error: {message: 'Unable to connect to server. Please try again'}
@@ -19,7 +19,7 @@ export const getClients = async (): Promise<GetClientsApiData> => {
 };
 
 export const deleteClient = async (id: string | undefined) => {
-    return await axios.delete(`/users/${id}`)
+    return await axios.delete(`/api/users/${id}`)
         .then((res) => res.data)
         .catch(() => ({
             error: {message: 'Unable to connect to server. Please try again'}
@@ -27,7 +27,7 @@ export const deleteClient = async (id: string | undefined) => {
 };
 
 export const patchClient = async (inputs: Client, id: string | undefined) => {
-    return await axios.patch(`/users/${id}`, inputs)
+    return await axios.patch(`/api/users/${id}`, inputs)
         .then((res) => res.data)
         .catch(() => ({
             error: {message: 'Unable to connect to server. Please try again'}
