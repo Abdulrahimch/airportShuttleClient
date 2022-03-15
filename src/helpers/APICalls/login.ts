@@ -1,4 +1,4 @@
-import axios from './axiosConfig';
+import axios from 'axios';
 import { AuthApiData } from '../../interface/AuthApiData';
 
 const login = async (username: string, password: string): Promise<AuthApiData> => {
@@ -6,7 +6,7 @@ const login = async (username: string, password: string): Promise<AuthApiData> =
     return await axios.post('/auth/login', fetchData)
         .then((res) => res.data)
         .catch(() => ({
-            error: {message: 'Unable to connect to server. Please try again'}
+            error: { message: 'Unable to connect to server. Please try again' }
         }))
 };
 

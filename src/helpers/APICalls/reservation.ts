@@ -1,4 +1,4 @@
-import axios from './axiosConfig';
+import axios from 'axios';
 import { GetReservationPaymentApiData } from '../../interface/agencyReservation';
 import { FormValues, ReservationApiData, GetReservationApiData } from '../../interface/Reservation';
 

@@ -1,4 +1,4 @@
-import axios from './axiosConfig';
+import axios from 'axios';
 import { AuthApiData } from '../../interface/AuthApiData';
 
 const logout = async (): Promise<AuthApiData> => {

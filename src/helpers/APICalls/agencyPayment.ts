@@ -1,4 +1,4 @@
-import axios from './axiosConfig';
+import axios from 'axios';
 import { PaymentApiData, Payment } from '../../interface/AgencyPayment';
 
 export const postPayment = async(inputs: Payment): Promise<PaymentApiData> => {
